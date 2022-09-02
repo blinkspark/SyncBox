@@ -6,6 +6,8 @@ from pydantic import BaseModel
 from google.cloud import firestore
 from argon2 import PasswordHasher
 from argon2.exceptions import VerifyMismatchError
+import jwt, secrets
+from datetime import datetime, timedelta
 
 
 class UserRequest(BaseModel):
@@ -23,14 +25,17 @@ async def root(user: UserRequest):
   col = db.collection('users')
   foundUsers = col.where('username', '==', user.uname).stream()
   foundUsers = [user async for user in foundUsers]
-  print(len(foundUsers))
   if len(foundUsers) == 0:
     passwd = hasher.hash(user.passwd)
     try:
-      await col.add({'username': user.uname, 'password': passwd})
-      return {'ok': True}
+      key = secrets.token_hex(16)
+      token = jwt.encode({'exp': datetime.utcnow() + timedelta(days=14)},
+                         headers={'uname': user.uname},
+                         key=key)
+      await col.add({'username': user.uname, 'password': passwd, 'key': key})
+      return {'ok': True, 'token': token}
     except Exception as e:
-      return {'ok': False, 'error': 'unknown error'}
+      return {'ok': False, 'error': f'unknown error {e}'}
   else:
     return {'ok': False, 'error': 'user already exist'}
 
@@ -43,7 +48,10 @@ async def login(user: UserRequest):
     foundUser = foundUser.to_dict()
     try:
       hasher.verify(foundUser['password'], user.passwd)
-      return {'ok': True}
+      token = jwt.encode({'exp': datetime.utcnow() + timedelta(days=14)},
+                         headers={'uname': foundUser['username']},
+                         key=foundUser['key'])
+      return {'ok': True, 'token': token}
     except VerifyMismatchError as e:
       return {'ok': False, 'error': 'passowrd does not match'}
     except Exception as e:

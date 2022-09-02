@@ -1,0 +1,59 @@
+[
+  {
+    "_id": "f9c6f52e-2558-4457-a0e0-a1c5d56eba1e",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:8000/login",
+    "url": "http://localhost:8000/login",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2022-09-02T08:45:31.292Z",
+    "modified": "2022-09-02T08:48:03.257Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"uname\": \"test\",\n  \"passwd\": \"123456\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "7f1e5944-233f-4bf5-8882-b4da4f292df6",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:8000/register",
+    "url": "http://localhost:8000/register",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2022-09-02T08:45:35.111Z",
+    "modified": "2022-09-02T08:45:44.060Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"uname\": \"test\",\n  \"passwd\": \"123456\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "10d89c00-cf31-490f-afa2-9c113d0fba61",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:8000/verify",
+    "url": "http://localhost:8000/verify",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2022-09-02T08:47:53.502Z",
+    "modified": "2022-09-02T08:50:09.770Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsInVuYW1lIjoidGVzdCJ9.eyJleHAiOjE2NjMzMTgwODN9.DHEqB14hWcKq9roH17ZD_lPhQuBx9Cli1lont2FuFes\"\n}",
+      "form": []
+    },
+    "tests": []
+  }
+]

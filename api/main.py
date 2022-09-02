@@ -67,7 +67,9 @@ async def login(user: UserRequest):
 
 @app.post("/verify")
 async def verify(req: VerifyRequest):
+  print(req.token)
   header = jwt.get_unverified_header(req.token)
+  print(header)
   col = db.collection('users')
   uname = header['uname']
   async for user in col.where('username', '==', uname).stream():
@@ -78,6 +80,5 @@ async def verify(req: VerifyRequest):
       return {'ok': True}
     except Exception as e:
       return {'ok': False, 'error': f'unknown error {e}'}
-    finally:
-      break
-  return {'ok': False, 'error': 'unknown error'}
+
+  return {'ok': False, 'error': 'unknown error1'}

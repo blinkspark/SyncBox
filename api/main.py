@@ -1,7 +1,3 @@
-from ast import Pass
-from ctypes.wintypes import ULONG
-from enum import Flag
-from typing import Tuple
 from fastapi import FastAPI
 from pydantic import BaseModel
 from google.cloud import firestore

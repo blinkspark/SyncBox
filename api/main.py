@@ -63,9 +63,7 @@ async def login(user: UserRequest):
 
 @app.post("/verify")
 async def verify(req: VerifyRequest):
-  print(req.token)
   header = jwt.get_unverified_header(req.token)
-  print(header)
   col = db.collection('users')
   uname = header['uname']
   async for user in col.where('username', '==', uname).stream():
